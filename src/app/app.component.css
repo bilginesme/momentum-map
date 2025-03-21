@@ -1,0 +1,48 @@
+.year-grid {
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center; /* ✅ Centers horizontally */
+   align-items: center; /* ✅ Centers vertically if needed */
+   gap: 20px;
+   max-width: 1200px;
+   margin: auto; /* ✅ Centers inside the parent div */
+ }
+ 
+ 
+ .month-container {
+   padding: 10px;
+   border: 1px solid #ddd;
+   text-align: center;
+   background: #f5f5f5;
+ }
+ 
+ .month-grid {
+   display: grid;
+   grid-template-rows: repeat(6, 1fr);
+   gap: 5px;
+ }
+ 
+ .week-row {
+   display: grid;
+   grid-template-columns: repeat(7, 1fr);
+   gap: 5px;
+ }
+ 
+ .heatmap-cell {
+   width: 30px;
+   height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-size: 12px;
+   color: black;
+   border-radius: 4px;
+   cursor: pointer; /* ✅ Makes it clickable */
+   transition: background-color 0.2s ease-in-out;
+ 
+   &:hover {
+     background-color: #ffcc00 !important; /* ✅ Change to a highlight color */
+     transform: scale(1.1); /* ✅ Slight zoom effect */
+   }
+ }
+ 

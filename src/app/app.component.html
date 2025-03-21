@@ -5,3 +5,18 @@
   <button class="btn btn-primary m-2" (click)="switchLanguage('en')">English</button>
   <button class="btn btn-success m-2" (click)="switchLanguage('tr')">Türkçe</button>
 </div>
+
+<div class="row text-center">
+  <div class="year-grid">
+    <div *ngFor="let month of heatmapData" class="month-container">
+      <h4>{{ monthNames[month.month] }}</h4>
+      <div class="month-grid">
+        <div *ngFor="let week of month.data" class="week-row">
+          <div *ngFor="let day of week" class="heatmap-cell" [style.backgroundColor]="getHeatmapColor(day?.value)" (click)="onDayClick(day)">
+            {{ day?.day || '' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
