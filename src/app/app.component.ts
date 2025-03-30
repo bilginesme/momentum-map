@@ -14,7 +14,8 @@ export class AppComponent  implements AfterViewInit {
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
   ];
-  
+  showModal = false;
+
   constructor(
     private translate: TranslateService) {
     this.translate.setDefaultLang('en'); // Default language
@@ -108,7 +109,10 @@ export class AppComponent  implements AfterViewInit {
 
 
   }
-
+  
+  handleModalData(data: { name: string; email: string }) {
+    console.log('Received from modal:', data);
+  }
   
   testPromise(param1: number): Promise<number> {
     return new Promise((resolve) => {
