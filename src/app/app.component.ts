@@ -1,3 +1,9 @@
+interface InstanceInfo {
+  dateStamp: string;
+  projectID: number;
+  quantity: number;
+}
+
 import { Component, AfterViewInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -6,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
+
 export class AppComponent  implements AfterViewInit {
   title = 'momentum-map';
   year = 2025; // Example year
@@ -15,6 +22,7 @@ export class AppComponent  implements AfterViewInit {
     "July", "August", "September", "October", "November", "December"
   ];
   showModal = false;
+  public data: InstanceInfo[] = [];
 
   constructor(
     private translate: TranslateService) {
@@ -25,18 +33,22 @@ export class AppComponent  implements AfterViewInit {
     console.log('Language from cookie:', lang);
 
     this.translate.setDefaultLang('en');
-    this.storageTest();
 
-    this.testPromise(2).then(result => console.log('Promise resut = ' + result));
-
-    this.generateYearlyHeatmap(this.year);
+    //this.storageTest();
+    //this.testPromise(2).then(result => console.log('Promise resut = ' + result));
+    this.generateYearlyHeatmap(this.year, false);
   }
 
   ngAfterViewInit() {
-  
+    //this.createSyntheticData();
+
+    const storedData = localStorage.getItem('data');
+    console.log(storedData);
+    const parsedData = storedData ? JSON.parse(storedData) : null;
+    console.log(parsedData);
   }
 
-  generateYearlyHeatmap(year: number) {
+  generateYearlyHeatmap(year: number, isRandom:boolean) {
     const months = [];
     
     for (let month = 0; month < 12; month++) {
@@ -48,9 +60,16 @@ export class AppComponent  implements AfterViewInit {
       let week: ({ day: number; value: number } | null)[] = Array.from({ length: 7 }, () => null);
 
       for (let day = 1; day <= daysInMonth; day++) {
+
         let weekday = new Date(year, month, day).getDay();
+        let theValue = 0;
+
+        if(isRandom) {
+          theValue = Math.floor(Math.random() * 10); // Random value between 0 and 9
+        } 
+
         weekday = (weekday === 0) ? 6 : weekday - 1; // ✅ Shift Sunday (0) to the end
-        week[weekday] = { day, value: Math.floor(Math.random() * 10) }; // ✅ Random value assigned correctly
+        week[weekday] = { day, value: theValue }; // ✅ Random value assigned correctly
       
         if (weekday === 6 || day === daysInMonth) {
           monthData.push([...week]); // ✅ Save a copy
@@ -60,11 +79,7 @@ export class AppComponent  implements AfterViewInit {
       }
 
       months.push({ month, data: monthData });
-
     }
-     
-    console.table(months);
-
 
     this.heatmapData = months;
   }
@@ -77,9 +92,9 @@ export class AppComponent  implements AfterViewInit {
     return '#d0ebeb'; // Lightest
   }
 
-  onDayClick(day: any) {
+  onDayClick(month:any, day: any) {
     if (day) {
-      console.log(`Clicked on day: ${day.day} with value: ${day.value}`);
+      console.log(`Clicked on  month: ${month.month} day: ${day.day} with value: ${day.value}`);
       alert(`You clicked on ${day.day}, Value: ${day.value}`);
     }
   }
@@ -93,7 +108,6 @@ export class AppComponent  implements AfterViewInit {
   }
 
   private storageTest(): void {
- 
     const userData = {
       name: 'Bilgin',
       streak: 45,
@@ -103,11 +117,8 @@ export class AppComponent  implements AfterViewInit {
     localStorage.setItem('userData', JSON.stringify(userData));
 
     const storedData = localStorage.getItem('userData');
-
     const userData2 = storedData ? JSON.parse(storedData) : null;
     console.log(userData2?.name); // "Bilgin"
-
-
   }
   
   handleModalData(data: { name: string; email: string }) {
@@ -124,4 +135,34 @@ export class AppComponent  implements AfterViewInit {
     });
   }
 
+  private createSyntheticData(): InstanceInfo[] {
+    const data = [];
+    const startDate = new Date(2024, 0, 1);
+    const endDate = new Date(2024, 0, 31);
+    const projectIDs = [1, 2, 3, 4, 5, 6];
+
+    for (let d = startDate; d <= endDate; d.setDate(d.getDate() + 1)) {
+      const dateStamp = d.toISOString().split('T')[0]; // YYYY-MM-DD format
+      const projectID = projectIDs[Math.floor(Math.random() * projectIDs.length)];
+      const quantity = Math.floor(Math.random() * 100); // Random quantity as string
+
+      data.push({ dateStamp, projectID, quantity });
+    }
+
+    let x:InstanceInfo = data.find(q => q.dateStamp == '2024-01-11')!;
+
+    if(x) {
+      x.quantity++;
+    } else {
+    }
+
+    localStorage.setItem('data', JSON.stringify(data));
+    
+    const storedData = localStorage.getItem('data');
+    console.log(storedData);
+    const parsedData = storedData ? JSON.parse(storedData) : null;
+    console.log(parsedData);
+
+    return data;
+  }
 }

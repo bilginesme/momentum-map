@@ -1,11 +1,11 @@
 {
-   "TITLE": "Welcome to MomentumMap!",
+  "TITLE": "Welcome to MomentumMap!",
   "DESCRIPTION": "Track your daily commitments and build strong habits.",
-   "CALENDAR": {
-     "JANUARY": "January",
-     "FEBRUARY": "February",
-     "MARCH": "March",
-     "WEEKDAYS": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-     "TOOLTIP": "Activity on {{date}}"
-   }
- }
+  "CALENDAR": {
+    "JANUARY": "January",
+    "FEBRUARY": "February",
+    "MARCH": "March",
+    "WEEKDAYS": ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+    "TOOLTIP": "Activity on {{date}}"
+  }
+}
