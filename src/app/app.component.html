@@ -1,4 +1,4 @@
-<app-modal-data [visible]="showModal" (closed)="showModal = false" (submitted)="handleModalData($event)"></app-modal-data>
+<app-modal-data [visible]="showModal" [day]="selectedDay" [month]="selectedMonth" (closed)="showModal = false" (submitted)="handleModalData($event)"></app-modal-data>
 
 <div class="container text-center">
   <h1 class="mt-5">{{ 'TITLE' | translate }}</h1>

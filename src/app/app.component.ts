@@ -23,6 +23,8 @@ export class AppComponent  implements AfterViewInit {
   ];
   showModal = false;
   public data: InstanceInfo[] = [];
+  public selectedDay: any = '';
+  public selectedMonth: any = '';
 
   constructor(
     private translate: TranslateService) {
@@ -95,7 +97,11 @@ export class AppComponent  implements AfterViewInit {
   onDayClick(month:any, day: any) {
     if (day) {
       console.log(`Clicked on  month: ${month.month} day: ${day.day} with value: ${day.value}`);
-      alert(`You clicked on ${day.day}, Value: ${day.value}`);
+      //alert(`You clicked on ${day.day}, Value: ${day.value}`);
+
+      this.selectedDay = day.day;
+      this.selectedMonth = month.month;
+      this.showModal = true;
     }
   }
 

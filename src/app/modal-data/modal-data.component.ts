@@ -8,6 +8,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class ModalDataComponent implements OnInit {
   @Input() visible = false;
+  @Input() day: any;
+  @Input() month: any;
   @Output() closed = new EventEmitter<void>();
   @Output() submitted = new EventEmitter<{ name: string; email: string }>();
 
@@ -24,9 +26,11 @@ export class ModalDataComponent implements OnInit {
 
   close() {
     this.closed.emit();
+    console.log('Modal closed');
   }
 
   submit() {
+    console.log('Form submitted:', this.form.value);
     if (this.form.valid) {
       this.submitted.emit(this.form.value);
       this.close();
