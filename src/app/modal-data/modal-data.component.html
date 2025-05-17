@@ -19,25 +19,25 @@
             <span>{{month}} {{day}}</span>
           </div>
           <div class="mb-3">
-            <label class="form-label">Name</label>
-            <input type="text" class="form-control" formControlName="name" />
-            <div *ngIf="form.get('name')?.touched && form.get('name')?.invalid" class="text-danger small">
+            <label class="form-label" for="txtQuantity">Quantity</label>
+            <input type="text" class="form-control" formControlName="txtQuantity" />
+            <div *ngIf="form.get('txtQuantity')?.touched && form.get('txtQuantity')?.invalid" class="text-danger small">
               Name is required.
             </div>
           </div>
 
           <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" formControlName="email" />
-            <div *ngIf="form.get('email')?.touched && form.get('email')?.invalid" class="text-danger small">
+            <label class="form-label" for="txtNote">Note</label>
+            <input type="text" class="form-control" formControlName="txtNote" />
+            <div *ngIf="form.get('txtNote')?.touched && form.get('txtNote')?.invalid" class="text-danger small">
               A valid email is required.
-            </div>
+            </div> 
           </div>
         </div>
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" (click)="close()">Cancel</button>
-          <button type="submit" class="btn btn-primary" [disabled]="form.invalid">Submit</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
         </div>
       </form>
     </div>

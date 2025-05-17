@@ -1,12 +1,22 @@
-<app-modal-data [visible]="showModal" [day]="selectedDay" [month]="selectedMonth" (closed)="showModal = false" (submitted)="handleModalData($event)"></app-modal-data>
+<app-modal-data [visible]="showModal" [day]="selectedDay" [month]="selectedMonth" [quantity]="selectedQuantity" (closed)="showModal = false" (submitted)="handleModalData($event)"></app-modal-data>
 
 <div class="container text-center">
   <h1 class="mt-5">{{ 'TITLE' | translate }}</h1>
   <p class="lead">{{ 'DESCRIPTION' | translate }}</p>
 
-  <button class="btn btn-primary m-2" (click)="switchLanguage('en')">English</button>
-  <button class="btn btn-success m-2" (click)="switchLanguage('tr')">Türkçe</button>
-  <button class="btn btn-primary" (click)="showModal = true">Open Modal</button>
+  <!-- Language Controls Row -->
+  <div class="d-flex justify-content-center align-items-center flex-wrap gap-2 mb-3">
+    <button class="btn btn-primary" (click)="switchLanguage('en')">English</button>
+    <button class="btn btn-success" (click)="switchLanguage('tr')">Türkçe</button>
+
+    <select class="form-select w-auto" (change)="onLanguageChange($event)" [(ngModel)]="selectedLanguage">
+      <option *ngFor="let lang of languages" [value]="lang.code">
+        {{ lang.name }}
+      </option>
+    </select>
+    
+    <button class="btn btn-primary" (click)="showModal = true">Open Modal</button>
+  </div>
 </div>
 
 <div class="row text-center">
@@ -15,9 +25,16 @@
       <h4>{{ monthNames[month.month] }}</h4>
       <div class="month-grid">
         <div *ngFor="let week of month.data" class="week-row">
-          <div *ngFor="let day of week" class="heatmap-cell" [style.backgroundColor]="getHeatmapColor(day?.value)" (click)="onDayClick(month, day)">
+          <!-- 
+          <div *ngFor="let day of week" class="heatmap-cell" [style.backgroundColor]="getHeatmapColor(day?.value, 'blue', 100)" (click)="onDayClick(month, day)">
             {{ day?.day || '' }}
           </div>
+          -->
+
+          <div *ngFor="let day of week" class="heatmap-cell" [style.backgroundColor]="getPastelSunriseColor(day?.value, 100)" (click)="onDayClick(month, day)">
+            {{ day?.day || '' }}
+          </div>
+
         </div>
       </div>
     </div>
