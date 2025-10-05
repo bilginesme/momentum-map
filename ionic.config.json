@@ -1,0 +1,7 @@
+{
+  "name": "momentum-map-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
